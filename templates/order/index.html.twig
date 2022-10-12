@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig'%}
+{% block title %}mes commandes-la boutique sénégalaise!{% endblock %}
+
+{% block content %}
+<h1>Je passe ma commande</h1>
+<p>choisisez vos préferences avant de passer votre commande sur la boutique française.</p>
+<hr>
+<div class="row">
+    <div class="col-md-6">
+        {% set formHtml %}
+        {{ form_start(form,{action:path('recap')}) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+        {% endset %}
+        {{formHtml|replace({'[br]' : '<br>'})| raw}}
+    </div>
+    
+    <div class="col-md-6 mt-2">
+        <b>Récap de votre commande</b>
+        {% for panier in cart %}
+        <div class="row recap-custum" >
+            <div class="col-md-2">
+                <img src="images/{{panier.product[0].illustration}}" alt="" style="height:75px ;">
+            </div>
+            <div class="col-md-8 my-auto">
+                {{panier.product[0].name}}<br>
+                <small> {{panier.product[0].subtitle}} </small>
+            </div>
+            <div class="col-md-2 my-auto">
+                x{{panier.quantity}}
+            </div>
+        </div>
+        {% endfor %}     
+    </div> 
+    
+</div>
+{% endblock %}

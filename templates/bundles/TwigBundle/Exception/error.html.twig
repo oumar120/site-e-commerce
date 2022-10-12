@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="row" style="margin: auto;">
+    <div class="mt-5 col-md-4">
+        <h1>Page introuvable</h1>
+        <p>Désolé la page que vous éssayez d'acceder est introuvable <br>
+            <a href="{{path('home')}}" class="btn btn-info">retour à l'accueil</a>
+        </p>
+        
+    </div>
+<div class="col-md-8 mt-5 my-auto">
+    <img src="{{asset('assets/img/tof_page_error.webp')}}" alt="" height="300px">  
+</div>
+</div>
+
+{% endblock %}

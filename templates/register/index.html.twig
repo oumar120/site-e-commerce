@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block content %}
+<h1>Inscription</h1>
+<div class="alert alert-info">{{notification}}</div>
+{{form_start(form)}}
+{{form_widget(form)}}
+{{form_end(form)}}
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}compte-shop!{% endblock %}
+
+{% block content %}
+<h1>mon compte</h1>
+Bonjour {{app.user.firstName}}, bienvenu dans votre espace compte <br>
+c'est ici que vous allez geré toutes vos informations personnelles <br>
+{% if is_granted('ROLE_ADMIN') %}
+vous etes administrateur <a href="/admin">se rendre à l espace admin</a>
+{% endif %}
+<hr>
+<div class="row ">
+    <div class="col-md-4">
+        <div class="custum_div text-center">
+            <img src="{{asset('assets/img/c.png')}}" alt="" height="40"><br>
+            <a href=" {{path('change_password')}} ">modifier mon password</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="custum_div text-center">
+            <img src="{{asset('assets/img/a.png')}}" alt="" height="40"><br>
+            <a href=" {{path('adresse')}} ">gérer mes adresses</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="custum_div text-center">
+            <img src="{{asset('assets/img/co.png')}}" alt="" height="40"><br>
+            <a href="{{path('account_order')}}">verifier mes commandes</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

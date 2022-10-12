@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<h1><b>Ma commande {{order.reference}}</b></h1>
+<a href=" {{path('account_order')}} ">retour</a>
+<hr>
+<p>
+    <strong>commande passé le: </strong>{{order.createdAt| date('d/m/y')}} <br>
+    <strong>statut de la commande:</strong>
+      {% if order.state == 1 %}
+           <span class="badge badge-primary">payé</span> 
+          {% elseif order.state == 2 %}
+          <span class="badge badge-warning">en cours de préparation</span> 
+          {% elseif order.state == 3 %}
+          <span class="badge badge-success">en cours de livraison</span> 
+        {% endif %} <br>
+    <strong>reference de ma commande: </strong> {{order.reference}} <br>
+    <strong>transporteur choisi: </strong>{{order.carriername}} <br>
+</p>
+<hr>
+<strong>Details:</strong>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Produit</th>
+            <th scope="col">quantité</th>
+            <th scope="col">prix unitaire</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+    <tbody>
+        {% set total=null %}
+        {% for product in order.orderDetails %}
+        <tr>
+            <td> {{product.product}} </td>
+            <td> x{{product.quantity}} </td>
+            <td> {{(product.price)/100}} fcfa</td>
+            <td> {{(product.total)/100}} fcfa</td>
+          </tr>
+          {% set total=total+((product.quantity * product.price)/100) %}
+        {% endfor %}
+    </tbody>
+      </table>
+      <div class="text-right">
+        <strong>sous-total: </strong>{{total}} fcfa<br>
+        <strong>Livraison: </strong>{{(order.carrierPrice)/100}} fcfa<br>
+        <strong>Total: </strong>{{total + ((order.carrierPrice)/100)}} fcfa<br>
+      </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+
+{% block content %}
+<h1><b>Mes commandes</b></h1>
+<p>C'est ici que vous allez pouvoir gérer toutes vos commandes</p>
+<a href=" {{path('compte')}} ">retour</a>
+{% if orders| length==0 %}
+<p class="text-center">vous n'avez pas encore effectué de commande</p>
+{% else %}
+<div class="row mt-3">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Réference</th>
+            <th scope="col">passé le</th>
+            <th>Statut de la commande</th>
+            <th scope="col">Produit(s)</th>
+            <th scope="col">Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        {% for order in orders %}
+    <tbody>
+    <tr>
+      <td class="badge badge-secondary"> {{order.reference}} </td>
+      <td> {{order.createdAt| date('d/m/y')}} </td>
+      <td>
+        {% if order.state == 1 %}
+           <span class="badge badge-primary">payé</span> 
+          {% elseif order.state == 2 %}
+          <span class="badge badge-warning">en cours de préparation</span> 
+          {% elseif order.state == 3 %}
+          <span class="badge badge-success">en cours de livraison</span> 
+        {% endif %}
+      </td>
+      <td> {{order.orderDetails| length}}</td>
+      <td> {{(order.total)/100}} fcfa</td>
+      <td> <a href="{{path('account_orderdetail',{'reference':order.reference})}}">voir ma commande</a> </td>
+    </tr>
+
+    </tbody>
+{% endfor %}
+      </table>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% block title %}Formulaire de contact!{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-8">
+        {% for message in app.flashes %}
+        <div class="alert alert-success">{{message[0]}}</div>
+        {% endfor %}
+        <h1>Nous contacter</h1>
+        {{form_start(form)}}
+        {{form_end(form)}}
+    </div>
+    <div class="col-md-4 my-auto">
+    <p class="float-right">
+        La boutique Sénégalaise <br>
+        Nord Foire <br>
+        221786344527 <br>
+    </p>
+    </div>
+</div>
+{% endblock %}
